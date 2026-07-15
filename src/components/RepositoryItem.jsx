@@ -1,9 +1,11 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
+import theme from '../theme';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    padding: 15,
+    backgroundColor: theme.colors.backgroundPrimary,
+    padding: theme.spacing.large,
   },
   header: {
     flexDirection: 'row',
@@ -11,46 +13,52 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 5,
-    marginRight: 15,
+    borderRadius: theme.borderRadius.medium,
+    marginRight: theme.spacing.large,
   },
   info: {
     flex: 1,
   },
   fullName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 5,
+    marginBottom: theme.spacing.small,
   },
   description: {
-    color: '#586069',
-    marginBottom: 8,
+    marginBottom: theme.spacing.medium,
   },
   language: {
     alignSelf: 'flex-start',
-    backgroundColor: '#0366d6',
-    color: 'white',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    backgroundColor: theme.colors.primary,
+    color: theme.colors.white,
+    paddingHorizontal: theme.spacing.medium,
+    paddingVertical: theme.spacing.small,
+    borderRadius: theme.borderRadius.small,
   },
   statistics: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 15,
+    marginTop: theme.spacing.large,
   },
   statistic: {
     alignItems: 'center',
   },
-  statisticValue: {
-    fontWeight: 'bold',
-  },
 });
+
+const formatCount = (count) => {
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}k`;
+  }
+
+  return String(count);
+};
 
 const Statistic = ({ label, value }) => (
   <View style={styles.statistic}>
-    <Text style={styles.statisticValue}>{value}</Text>
-    <Text>{label}</Text>
+    <Text fontWeight="bold">
+      {formatCount(value)}
+    </Text>
+    <Text color="secondary">
+      {label}
+    </Text>
   </View>
 );
 
@@ -64,9 +72,11 @@ const RepositoryItem = ({ item }) => {
         />
 
         <View style={styles.info}>
-          <Text style={styles.fullName}>{item.fullName}</Text>
+          <Text style={styles.fullName} fontWeight="bold" fontSize="subheading">
+            {item.fullName}
+          </Text>
 
-          <Text style={styles.description}>
+          <Text style={styles.description} color="secondary">
             {item.description}
           </Text>
 
