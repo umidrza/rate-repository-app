@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client/react';
 import Main from './src/components/Main';
 
 import createApolloClient from './src/utils/apolloClient';
+console.log('Apollo URI:', process.env.EXPO_PUBLIC_APOLLO_URI);
 
 const apolloClient = createApolloClient();
 
