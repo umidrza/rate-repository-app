@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ title, to }) => {
+const AppBarTab = ({ title, to, onPress }) => {
   return (
-    <Link style={styles.tab} to={to} component={Pressable}>
+    <Link style={styles.tab} to={to} onPress={onPress} component={Pressable}>
       <Text color="white" fontSize="subheading" fontWeight="bold">
         {title}
       </Text>

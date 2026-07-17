@@ -1,6 +1,8 @@
 import { View, ScrollView, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
+import useSignOut from '../hooks/useSignOut';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
 import AppBarTab from './AppBarTab';
 import theme from '../theme';
 
@@ -14,11 +16,19 @@ const styles = StyleSheet.create({
 
 
 const AppBar = () => {
+  const signOut = useSignOut();
+  const { authorizedUser } = useAuthorizedUser();
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab title="Repositories" to="/" />
-        <AppBarTab title="Sign In" to="/signin" />
+
+        {authorizedUser ? (
+          <AppBarTab title="Sign out" onPress={signOut} />
+        ) : (
+          <AppBarTab title="Sign in" to="/signin" />
+        )}
       </ScrollView>
     </View>
   );
