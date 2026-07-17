@@ -6,6 +6,9 @@ import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
 import theme from '../theme';
 import Text from './Text';
+import AuthStorage from '../utils/authStorage';
+
+const authStorage = new AuthStorage();
 
 const styles = StyleSheet.create({
   container: {
@@ -82,7 +85,9 @@ const SignIn = () => {
         password,
       });
 
-      console.log(data);
+      await authStorage.setAccessToken(
+        data.authenticate.accessToken
+      );
     } catch (e) {
       console.log(e);
     }
