@@ -71,21 +71,7 @@ const FormikTextInput = ({
   );
 };
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-  const navigate = useNavigate();
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      await signIn({ username, password });
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+export const SignInContainer = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -95,6 +81,7 @@ const SignIn = () => {
       {(formikProps) => (
         <View style={styles.container}>
           <FormikTextInput
+            testID="usernameField"
             name="username"
             placeholder="Username"
             autoCapitalize="none"
@@ -102,6 +89,7 @@ const SignIn = () => {
           />
 
           <FormikTextInput
+            testID="passwordField"
             name="password"
             placeholder="Password"
             secureTextEntry
@@ -109,6 +97,7 @@ const SignIn = () => {
           />
 
           <Pressable
+            testID="submitButton"
             style={styles.button}
             onPress={formikProps.handleSubmit}
           >
@@ -120,6 +109,23 @@ const SignIn = () => {
       )}
     </Formik>
   );
+};
+
+
+const SignIn = () => {
+  const [signIn] = useSignIn();
+  const navigate = useNavigate();
+
+  const onSubmit = async ({ username, password }) => {
+    try {
+      await signIn({ username, password });
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;
