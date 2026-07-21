@@ -1,77 +1,19 @@
-import React from 'react';
-import { View, TextInput, Pressable, StyleSheet } from 'react-native';
+import { useState } from "react";
 import { useNavigate } from "react-router-native";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import useSignIn from '../hooks/useSignIn';
-import theme from '../theme';
-import Text from './Text';
-
-const styles = StyleSheet.create({
-  container: {
-    padding: theme.spacing.large,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#e1e4e8',
-    padding: theme.spacing.medium,
-    marginBottom: theme.spacing.small,
-    borderRadius: theme.borderRadius.small,
-  },
-  errorInput: {
-    borderColor: '#d73a4a',
-  },
-  errorText: {
-    color: '#d73a4a',
-    marginBottom: theme.spacing.medium,
-  },
-  button: {
-    backgroundColor: '#0366d6',
-    padding: theme.spacing.large,
-    borderRadius: theme.borderRadius.small,
-    alignItems: 'center',
-    marginTop: theme.spacing.medium,
-  },
-});
+import FormikTextInput from './Form/FormikTextInput';
+import FormContainer from './Form/FormContainer';
+import FormButton from './Form/FormButton';
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
   password: yup.string().required('Password is required'),
 });
 
-const FormikTextInput = ({
-  name,
-  secureTextEntry = false,
-  formikProps,
-  ...props
-}) => {
-  const hasError =
-    formikProps.touched[name] && formikProps.errors[name];
-
-  return (
-    <View>
-      <TextInput
-        style={[
-          styles.input,
-          hasError && styles.errorInput,
-        ]}
-        value={formikProps.values[name]}
-        onChangeText={formikProps.handleChange(name)}
-        onBlur={formikProps.handleBlur(name)}
-        secureTextEntry={secureTextEntry}
-        {...props}
-      />
-      {hasError && (
-        <Text style={styles.errorText}>
-          {formikProps.errors[name]}
-        </Text>
-      )}
-    </View>
-  );
-};
-
-export const SignInContainer = ({ onSubmit }) => {
+export const SignInContainer = ({ onSubmit, error }) => {
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -79,9 +21,8 @@ export const SignInContainer = ({ onSubmit }) => {
       validationSchema={validationSchema}
     >
       {(formikProps) => (
-        <View style={styles.container}>
+        <FormContainer error={error}>
           <FormikTextInput
-            testID="usernameField"
             name="username"
             placeholder="Username"
             autoCapitalize="none"
@@ -89,23 +30,17 @@ export const SignInContainer = ({ onSubmit }) => {
           />
 
           <FormikTextInput
-            testID="passwordField"
             name="password"
             placeholder="Password"
             secureTextEntry
             formikProps={formikProps}
           />
 
-          <Pressable
-            testID="submitButton"
-            style={styles.button}
+          <FormButton
+            title="Sign in"
             onPress={formikProps.handleSubmit}
-          >
-            <Text color="white" bold>
-              Sign in
-            </Text>
-          </Pressable>
-        </View>
+          />
+        </FormContainer>
       )}
     </Formik>
   );
@@ -115,6 +50,7 @@ export const SignInContainer = ({ onSubmit }) => {
 const SignIn = () => {
   const [signIn] = useSignIn();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const onSubmit = async ({ username, password }) => {
     try {
@@ -122,10 +58,11 @@ const SignIn = () => {
       navigate("/");
     } catch (e) {
       console.log(e);
+      setError("Invalid username or password");
     }
   };
 
-  return <SignInContainer onSubmit={onSubmit} />;
+  return <SignInContainer onSubmit={onSubmit} error={error} />;
 };
 
 export default SignIn;

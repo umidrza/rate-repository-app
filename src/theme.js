@@ -8,10 +8,13 @@ const theme = {
     backgroundPrimary: '#ffffff',
     backgroundSecondary: '#24292e',
     white: '#ffffff',
+    error: '#d73a4a',
+    borderColor: '#e1e4e8',
   },
   fontSizes: {
     body: 14,
     subheading: 16,
+    heading: 20,
   },
   fonts: {
     main: Platform.select({
