@@ -15,14 +15,14 @@ const AppBar = () => {
 
         {authorizedUser ? (
           <>
-            <AppBarTab
-              title="Create a review"
-              to="/review"
-            />
+            <AppBarTab title="Create a review" to="/review" />
             <AppBarTab title="Sign out" onPress={signOut} />
           </>
         ) : (
-          <AppBarTab title="Sign in" to="/signin" />
+          <>
+            <AppBarTab title="Sign in" to="/signin" />
+            <AppBarTab title="Sign up" to="/signup" />
+          </>
         )}
       </ScrollView>
     </View>
