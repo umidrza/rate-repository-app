@@ -1,19 +1,8 @@
-import { View, ScrollView, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-
-import useSignOut from '../hooks/useSignOut';
-import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import { View, ScrollView } from 'react-native';
+import useSignOut from '../../hooks/useSignOut';
+import useAuthorizedUser from '../../hooks/useAuthorizedUser';
 import AppBarTab from './AppBarTab';
-import theme from '../theme';
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.colors.backgroundSecondary,
-    paddingBottom: theme.spacing.medium,
-  },
-});
-
+import styles from './styles';
 
 const AppBar = () => {
   const signOut = useSignOut();

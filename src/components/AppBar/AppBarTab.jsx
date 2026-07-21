@@ -1,15 +1,7 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import { Link } from 'react-router-native';
-
-import theme from '../theme';
-import Text from './Text';
-
-const styles = StyleSheet.create({
-  tab: {
-    paddingVertical: theme.spacing.medium,
-    paddingHorizontal: theme.spacing.large,
-  },
-});
+import Text from '../Text';
+import styles from './styles';
 
 const AppBarTab = ({ title, to, onPress }) => {
   return (

@@ -1,14 +1,6 @@
-import { View, FlatList, StyleSheet, Pressable } from 'react-native';
-import { useNavigate } from 'react-router-native';
-
-import useRepositories from '../hooks/useRepositories';
-import RepositoryItem from './RepositoryItem';
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-});
+import { View, FlatList, Pressable } from 'react-native';
+import RepositoryItem from '../SingleRepository/RepositoryItem';
+import styles from './styles';
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
@@ -31,11 +23,4 @@ export const RepositoryListContainer = ({ repositories, onNavigate }) => {
   );
 };
 
-const RepositoryList = () => {
-  const navigate = useNavigate();
-  const { repositories } = useRepositories();
-
-  return <RepositoryListContainer repositories={repositories} onNavigate={navigate} />;
-};
-
-export default RepositoryList;
+export default RepositoryListContainer;

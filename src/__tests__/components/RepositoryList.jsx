@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect } from '@jest/globals';
 import { render, within } from '@testing-library/react-native';
-import { RepositoryListContainer } from '../../components/RepositoryList';
+import RepositoryListContainer from '../../components/RepositoryList/RepositoryListContainer';
 
 describe('RepositoryList', () => {
     describe('RepositoryListContainer', () => {
