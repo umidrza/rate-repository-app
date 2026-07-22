@@ -36,6 +36,28 @@ const styles = StyleSheet.create({
         color: '#586069',
         marginBottom: theme.spacing.small,
     },
+
+    buttonsContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: theme.spacing.large,
+        gap: 20
+    },
+
+    buttons: {
+        borderRadius: theme.borderRadius.small,
+        alignItems: "center",
+        paddingVertical: theme.spacing.medium,
+        paddingHorizontal: theme.spacing.large
+    },
+
+    deleteButton: {
+        backgroundColor: theme.colors.error,
+    },
+
+    viewButton: {
+        backgroundColor: theme.colors.primary,
+    },
 });
 
 export default styles;

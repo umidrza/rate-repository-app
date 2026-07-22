@@ -1,6 +1,7 @@
 import { View, FlatList, Pressable } from 'react-native';
 import RepositoryItem from '../SingleRepository/RepositoryItem';
 import RepositoryOrderPicker from './RepositoryOrderPicker';
+import RepositorySearchBar from './RepositorySearchBar';
 import styles from './styles';
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -10,6 +11,8 @@ const RepositoryListContainer = ({
   onNavigate,
   order,
   onOrderChange,
+  searchKeyword,
+  onSearchKeywordChange
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -26,10 +29,16 @@ const RepositoryListContainer = ({
       )}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
-        <RepositoryOrderPicker
-          value={order}
-          onChange={onOrderChange}
-        />
+        <>
+          <RepositorySearchBar
+            searchKeyword={searchKeyword}
+            setSearchKeyword={onSearchKeywordChange}
+          />
+          <RepositoryOrderPicker
+            value={order}
+            onChange={onOrderChange}
+          />
+        </>
       }
     />
   );
