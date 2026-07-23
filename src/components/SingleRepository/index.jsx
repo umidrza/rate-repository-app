@@ -4,27 +4,26 @@ import { FlatList, View } from 'react-native';
 import useRepository from '../../hooks/useRepository';
 import RepositoryItem from './RepositoryItem';
 import ReviewItem from '../ReviewItem';
-import Text from '../Text';
 
 const SingleRepository = () => {
   const { id } = useParams();
 
-  const { repository, loading, error } = useRepository(id, 10);
+  const { repository, fetchMore } = useRepository(id, 5);
 
-  if (loading) return null;
+  if (!repository) return null;
 
-  if (error) {
-    return <Text>Error loading repository.</Text>;
-  }
+  const reviews = repository.reviews.edges.map(edge => edge.node);
 
   return (
     <FlatList
-      data={repository.reviews}
+      data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
         <RepositoryItem item={repository} showGitHubButton />
       }
+      onEndReached={fetchMore}
+      onEndReachedThreshold={0.5}
       ItemSeparatorComponent={() => (
         <View style={{ height: 10 }} />
       )}

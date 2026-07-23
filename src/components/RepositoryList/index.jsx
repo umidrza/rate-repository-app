@@ -36,7 +36,8 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 4,
     ...orderVariables,
     searchKeyword: debouncedSearchKeyword
   });
@@ -44,6 +45,7 @@ const RepositoryList = () => {
   return (
     <RepositoryListContainer
       repositories={repositories}
+      onFetchMore={fetchMore}
       onNavigate={navigate}
       order={order}
       onOrderChange={setOrder}

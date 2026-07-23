@@ -8,6 +8,7 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryListContainer = ({
   repositories,
+  onFetchMore,
   onNavigate,
   order,
   onOrderChange,
@@ -28,6 +29,8 @@ const RepositoryListContainer = ({
         </Pressable>
       )}
       keyExtractor={(item) => item.id}
+      onEndReached={onFetchMore}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={
         <>
           <RepositorySearchBar
